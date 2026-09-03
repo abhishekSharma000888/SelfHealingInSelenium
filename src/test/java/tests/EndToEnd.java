@@ -13,6 +13,12 @@ public class EndToEnd extends ParentClass {
         common.click(PageElements.LOGIN_BUTTON, "Login button");
         // Navigate to PIM menu
         common.click(PageElements.PIM, "PIM menu");
+        // Add Employee
+        common.click(PageElements.ADD_EMPLOYEE, "Add Employee");
+        common.type(PageElements.FIRST_NAME, "SelfHealing", "First Name");
+        common.type(PageElements.MIDDLE_NAME, "Test", "Middle Name");
+        common.type(PageElements.LAST_NAME, "Employee", "Last Name");
+        common.click(PageElements.SAVE_BUTTON, "Save Employee");
 
     }
 }
