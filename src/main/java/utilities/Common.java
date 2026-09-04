@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import elements.PageElements;
 import java.time.Duration;
+import java.util.List;
 
 public class Common {
 
@@ -82,6 +83,16 @@ public class Common {
     public void waitForFormLoaderToDisappear() {
         wait.until(
                 ExpectedConditions.invisibilityOfElementLocated(PageElements.FORM_LOADER)
+        );
+    }
+
+    public List<WebElement> getElements(By locator) {
+        return driver.findElements(locator);
+    }
+
+    public List<WebElement> waitForElements(By locator) {
+        return wait.until(
+                ExpectedConditions.visibilityOfAllElementsLocatedBy(locator)
         );
     }
 }

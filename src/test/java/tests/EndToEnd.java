@@ -1,7 +1,10 @@
 package tests;
 
 import elements.PageElements;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class EndToEnd extends ParentClass {
 
@@ -31,5 +34,13 @@ public class EndToEnd extends ParentClass {
         common.clear(PageElements.LAST_NAME);
         common.type(PageElements.LAST_NAME, "UpdatedLast", "Updated Last Name");
         common.click(PageElements.SAVE_BUTTON, "Save Employee");
+        // Navigate to Employee List
+        common.click(PageElements.EMPLOYEE_LIST, "Employee List");
+        // Get employee rows
+        List<WebElement> checkboxes = common.waitForElements(PageElements.EMPLOYEE_CHECKBOXES);
+        System.out.println("Checkboxes found: " + checkboxes.size());
+        for (int i = 2; i <= 3; i++) {
+            checkboxes.get(i).click();
+        }
     }
 }
