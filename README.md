@@ -1,19 +1,45 @@
 # SelfHealingInSelenium
+
 A Selenium-based test automation framework that uses a three-level locator strategy to make automated tests more resilient to UI changes.
-## Work Done till Thursday
-## Current Progress
 
-Java 22 + Maven + Selenium + TestNG framework is set up.
+## Technology Stack
 
-Working E2E flow:
-Login → PIM → Add Employee → Save Employee
+- Java 22
+- Maven
+- Selenium WebDriver 4.48.0
+- TestNG
+- Chrome / ChromeDriver
 
-Created:
-- `ParentClass.java` – WebDriver setup/teardown
+## Project Structure
+
+- `ParentClass.java` – WebDriver setup and teardown
 - `Common.java` – reusable Selenium helper methods
 - `PageElements.java` – application locators
-- `EndToEnd.java` – single E2E test
+- `EndToEnd.java` – main E2E employee lifecycle test
 
-Next: Employee List → Search → Edit → Save → Delete → Confirm Delete.
+## Current Progress
 
-Future: 3-level self-healing locators → warning logs → configurable reports.
+### Completed and Passing
+
+The following E2E flow is working successfully:
+
+```text
+Login
+  ↓
+PIM
+  ↓
+Add Employee
+  ↓
+Enter First / Middle / Last Name
+  ↓
+Save Employee
+  ↓
+Employee List
+  ↓
+Select First Employee Record
+  ↓
+Edit Employee
+  ↓
+Modify First / Middle / Last Name
+  ↓
+Save Changes

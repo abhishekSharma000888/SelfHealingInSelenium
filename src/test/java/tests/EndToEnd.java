@@ -21,10 +21,15 @@ public class EndToEnd extends ParentClass {
         common.click(PageElements.SAVE_BUTTON, "Save Employee");
         // Navigate to Employee List
         common.click(PageElements.EMPLOYEE_LIST, "Employee List");
-        // Search for employee
-        common.type(PageElements.EMPLOYEE_NAME_SEARCH, "SelfHealing", "Employee Name");
-        common.click(PageElements.SEARCH_BUTTON, "Search button");
-        String employeeId = common.getText(PageElements.EMPLOYEE_ID);
-        System.out.println("Created Employee ID: " + employeeId);
+        // Edit first employee record
+        common.click(PageElements.FIRST_EMPLOYEE_EDIT, "Edit First Employee");
+        // Modify employee details
+        common.clear(PageElements.FIRST_NAME);
+        common.type(PageElements.FIRST_NAME, "UpdatedFirst", "Updated First Name");
+        common.clear(PageElements.MIDDLE_NAME);
+        common.type(PageElements.MIDDLE_NAME, "UpdatedMiddle", "Updated Middle Name");
+        common.clear(PageElements.LAST_NAME);
+        common.type(PageElements.LAST_NAME, "UpdatedLast", "Updated Last Name");
+        common.click(PageElements.SAVE_BUTTON, "Save Employee");
     }
 }

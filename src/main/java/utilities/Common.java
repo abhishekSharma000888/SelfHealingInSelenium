@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import elements.PageElements;
 import java.time.Duration;
 
 public class Common {
@@ -40,6 +40,7 @@ public class Common {
     }
     // Click an element
     public void click(By locator, String description) {
+        waitForFormLoaderToDisappear();
         WebElement element = waitForElementToBeClickable(locator);
         element.click();
     }
@@ -76,5 +77,11 @@ public class Common {
     }
     public String getValue(By locator) {
         return waitForElement(locator).getAttribute("value");
+    }
+    // Wait for OrangeHRM form loader to disappear
+    public void waitForFormLoaderToDisappear() {
+        wait.until(
+                ExpectedConditions.invisibilityOfElementLocated(PageElements.FORM_LOADER)
+        );
     }
 }

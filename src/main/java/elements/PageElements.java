@@ -17,4 +17,6 @@ public class PageElements {
     public static final By EMPLOYEE_NAME_SEARCH = By.xpath("//input[@placeholder='Type for hints...']");
     public static final By SEARCH_BUTTON = By.xpath("//button[@type='submit']");
     public static final By EMPLOYEE_ID = By.xpath("//label[text()='Employee Id']/following::input[1]");
+    public static final By FIRST_EMPLOYEE_EDIT = By.xpath("(//div[@role='row'])[2]//button[1]");
+    public static final By FORM_LOADER = By.cssSelector(".oxd-form-loader");
 }
