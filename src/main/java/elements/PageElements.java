@@ -13,5 +13,8 @@ public class PageElements {
     public static final By MIDDLE_NAME = By.name("middleName");
     public static final By LAST_NAME = By.name("lastName");
     public static final By SAVE_BUTTON = By.xpath("//button[@type='submit']");
-
+    public static final By EMPLOYEE_LIST = By.xpath("//a[text()='Employee List']");
+    public static final By EMPLOYEE_NAME_SEARCH = By.xpath("//input[@placeholder='Type for hints...']");
+    public static final By SEARCH_BUTTON = By.xpath("//button[@type='submit']");
+    public static final By EMPLOYEE_ID = By.xpath("//label[text()='Employee Id']/following::input[1]");
 }

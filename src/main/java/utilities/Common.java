@@ -74,4 +74,7 @@ public class Common {
     public void clear(By locator) {
         waitForElement(locator).clear();
     }
+    public String getValue(By locator) {
+        return waitForElement(locator).getAttribute("value");
+    }
 }
