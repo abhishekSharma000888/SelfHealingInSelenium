@@ -7,6 +7,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import elements.PageElements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.time.Duration;
 import java.util.List;
 
@@ -92,7 +95,9 @@ public class Common {
 
     public List<WebElement> waitForElements(By locator) {
         return wait.until(
-                ExpectedConditions.visibilityOfAllElementsLocatedBy(locator)
+                ExpectedConditions.presenceOfAllElementsLocatedBy(locator)
         );
     }
+    private static final Logger logger =
+            LoggerFactory.getLogger(Common.class);
 }
