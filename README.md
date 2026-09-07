@@ -89,3 +89,41 @@ The framework attempts them sequentially.
                       v             v
                     WARN         ERROR
                     Continue     Test fails
+
+## Current Framework
+Java 22
+Maven
+Selenium 4.48.0
+TestNG 7.11.0
+SLF4J + Logback
+Chrome WebDriver
+OrangeHRM demo application
+
+## Completed E2E Flow
+The complete conventional Selenium automation flow is working successfully:
+
+Login
+  ↓
+Navigate to PIM
+  ↓
+Add Employee
+  ↓
+Employee List
+  ↓
+Edit First Employee
+  ↓
+Modify First/Middle/Last Name
+  ↓
+Save Employee
+  ↓
+Employee List
+  ↓
+Select 2 Employee Records
+  ↓
+Delete Selected
+  ↓
+Confirm Delete
+  ↓
+Validate "Successfully Deleted"
+
+The E2E test successfully creates, modifies, and deletes employee records.
