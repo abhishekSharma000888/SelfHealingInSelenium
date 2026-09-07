@@ -7,8 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import elements.PageElements;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.List;
@@ -114,17 +112,55 @@ public class Common {
         );
     }
 
-    private static final Logger logger =
-            LoggerFactory.getLogger(Common.class);
-
     // Self-healing locator
     public WebElement selfHealingFind(By locator1, By locator2, By locator3, String description) {
         return selfHealingLocator.find(locator1, locator2, locator3, description);
     }
-    
+
     public void selfHealingClick(By locator1, By locator2, By locator3, String description) {
         waitForFormLoaderToDisappear();
         WebElement element = selfHealingLocator.find(locator1, locator2, locator3, description);
         element.click();
+    }
+
+    public void selfHealingClick(String elementName) {
+
+        switch (elementName) {
+
+            case "LOGIN_BUTTON":
+                selfHealingClick(PageElements.LOGIN_BUTTON_L1, PageElements.LOGIN_BUTTON_L2, PageElements.LOGIN_BUTTON_L3, "Login button");
+                break;
+            case "PIM":
+                selfHealingClick(PageElements.PIM_L1, PageElements.PIM_L2, PageElements.PIM_L3, "PIM");
+                break;
+            case "ADD_EMPLOYEE":
+                selfHealingClick(PageElements.ADD_EMPLOYEE_L1, PageElements.ADD_EMPLOYEE_L2, PageElements.ADD_EMPLOYEE_L3, "Add Employee");
+                break;
+            case "SAVE_BUTTON":
+                selfHealingClick(PageElements.SAVE_BUTTON_L1, PageElements.SAVE_BUTTON_L2, PageElements.SAVE_BUTTON_L3, "Save button");
+                break;
+            case "EMPLOYEE_LIST":
+                selfHealingClick(PageElements.EMPLOYEE_LIST_L1, PageElements.EMPLOYEE_LIST_L2, PageElements.EMPLOYEE_LIST_L3, "Employee List");
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown self-healing element: " + elementName);
+        }
+    }
+    public void selfHealingType(String elementName, String text) {
+
+        WebElement element;
+        switch (elementName) {
+            case "USERNAME":
+                element = selfHealingFind(PageElements.USERNAME_L1, PageElements.USERNAME_L2, PageElements.USERNAME_L3, "Username");
+                break;
+            case "PASSWORD":
+                element = selfHealingFind(PageElements.PASSWORD_L1, PageElements.PASSWORD_L2, PageElements.PASSWORD_L3, "Password");
+                break;
+
+            default:
+                throw new IllegalArgumentException("Unknown self-healing element: " + elementName);
+        }
+        element.clear();
+        element.sendKeys(text);
     }
 }
