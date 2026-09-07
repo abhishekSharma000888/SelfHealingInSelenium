@@ -118,17 +118,13 @@ public class Common {
             LoggerFactory.getLogger(Common.class);
 
     // Self-healing locator
-    public WebElement selfHealingFind(
-            By locator1,
-            By locator2,
-            By locator3,
-            String description) {
-
-        return selfHealingLocator.find(
-                locator1,
-                locator2,
-                locator3,
-                description
-        );
+    public WebElement selfHealingFind(By locator1, By locator2, By locator3, String description) {
+        return selfHealingLocator.find(locator1, locator2, locator3, description);
+    }
+    
+    public void selfHealingClick(By locator1, By locator2, By locator3, String description) {
+        waitForFormLoaderToDisappear();
+        WebElement element = selfHealingLocator.find(locator1, locator2, locator3, description);
+        element.click();
     }
 }
