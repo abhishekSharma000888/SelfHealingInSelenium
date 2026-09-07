@@ -23,7 +23,8 @@ public class Common {
         this.selfHealingLocator = new SelfHealingLocator(this);
     }
 
-    // Wait for complete page load
+    /* Waits until the browser reports that the complete HTML document has loaded.
+       This helps ensure that the page is ready before further Selenium actions are performed. */
     public void loadCompleteWebPage() {
         wait.until(webDriver ->
                 ((JavascriptExecutor) webDriver)
@@ -32,40 +33,46 @@ public class Common {
         );
     }
 
-    // Wait until element is visible
+    /* Waits until the element identified by the supplied locator is visible on the page.
+       Returns the visible WebElement so that the caller can perform further actions on it. */
     public WebElement waitForElement(By locator) {
         return wait.until(
                 ExpectedConditions.visibilityOfElementLocated(locator)
         );
     }
 
-    // Wait until element is clickable
+    /* Waits until the element is both visible and enabled for user interaction.
+       Returns the WebElement when Selenium determines that it can be clicked. */
     public WebElement waitForElementToBeClickable(By locator) {
         return wait.until(
                 ExpectedConditions.elementToBeClickable(locator)
         );
     }
 
-    // Click an element
+    /* Waits for any OrangeHRM form loader to disappear before attempting the click.
+       This prevents interactions from occurring while the application is still processing a request. */
     public void click(By locator, String description) {
         waitForFormLoaderToDisappear();
         WebElement element = waitForElementToBeClickable(locator);
         element.click();
     }
 
-    // Enter text into an element
+    /* Waits for the target input element to become visible before entering text.
+       The existing value is cleared first so that the supplied text replaces previous content. */
     public void type(By locator, String text, String description) {
         WebElement element = waitForElement(locator);
         element.clear();
         element.sendKeys(text);
     }
 
-    // Get text from an element
+    /* Waits for the requested element and retrieves the visible text contained within it.
+       This is useful for validations and for reading messages or displayed application data. */
     public String getText(By locator) {
         return waitForElement(locator).getText();
     }
 
-    // Check whether an element is displayed
+    /* Checks whether an element becomes visible within the configured wait period.
+       Returns false instead of failing the test when the element cannot be found or displayed. */
     public boolean isDisplayed(By locator) {
         try {
             return waitForElement(locator).isDisplayed();
@@ -74,7 +81,8 @@ public class Common {
         }
     }
 
-    // Scroll element into view
+    /* Waits for the requested element and scrolls it into the visible browser area.
+       The element is positioned near the center of the viewport to make interaction more reliable. */
     public void scrollToElement(By locator) {
         WebElement element = waitForElement(locator);
 
@@ -84,13 +92,10 @@ public class Common {
         );
     }
 
-    // Clear an input field
+    /* Waits for the requested input element and removes its existing value.
+       This provides a reusable way to reset an input before entering new data. */
     public void clear(By locator) {
         waitForElement(locator).clear();
-    }
-
-    public String getValue(By locator) {
-        return waitForElement(locator).getAttribute("value");
     }
 
     // Wait for OrangeHRM form loader to disappear
@@ -102,27 +107,26 @@ public class Common {
         );
     }
 
-    public List<WebElement> getElements(By locator) {
-        return driver.findElements(locator);
-    }
-
+    // Waits until at least one element matching the locator is present in the DOM.
     public List<WebElement> waitForElements(By locator) {
-        return wait.until(
-                ExpectedConditions.presenceOfAllElementsLocatedBy(locator)
-        );
+        return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
     }
 
-    // Self-healing locator
+    /* Passes three locator levels to the self-healing engine and returns the first successful element.
+       The method keeps the fallback logic outside the test case so EndToEnd remains simple and readable. */
     public WebElement selfHealingFind(By locator1, By locator2, By locator3, String description) {
         return selfHealingLocator.find(locator1, locator2, locator3, description);
     }
 
+    /* Uses the three-level locator strategy to find the requested element before clicking it.
+       If the primary locator fails, SelfHealingLocator automatically attempts the configured fallback locators. */
     public void selfHealingClick(By locator1, By locator2, By locator3, String description) {
         waitForFormLoaderToDisappear();
         WebElement element = selfHealingLocator.find(locator1, locator2, locator3, description);
         element.click();
     }
 
+    // Provides a simple element name so the test does not need to pass three locators manually.
     public void selfHealingClick(String elementName) {
 
         switch (elementName) {
@@ -146,6 +150,8 @@ public class Common {
                 throw new IllegalArgumentException("Unknown self-healing element: " + elementName);
         }
     }
+    /* Provides a simple element name so the test can enter text using the self-healing strategy.
+       The method resolves the element name to its L1, L2 and L3 locators before entering the supplied text. */
     public void selfHealingType(String elementName, String text) {
 
         WebElement element;
