@@ -16,22 +16,22 @@ public class EndToEnd extends ParentClass {
     public void employeeLifecycle() {
         // login flow
         logger.info("Starting employee lifecycle test"+ " Performing login");
-        common.type(PageElements.USERNAME, "Admin", "Username");
-        common.type(PageElements.PASSWORD, "admin123", "Password");
-        common.click(PageElements.LOGIN_BUTTON, "Login button");
+        common.selfHealingType("USERNAME", "Admin");
+        common.selfHealingType("PASSWORD", "admin123");
+        common.selfHealingClick("LOGIN_BUTTON");
         logger.info("Login completed successfully");
         // Navigate to PIM menu
-        common.click(PageElements.PIM, "PIM menu");
+        common.selfHealingClick("PIM");
         // Add Employee
         logger.info("Starting employee creation");
-        common.click(PageElements.ADD_EMPLOYEE, "Add Employee");
+        common.selfHealingClick("ADD_EMPLOYEE");
         common.type(PageElements.FIRST_NAME, "SelfHealing", "First Name");
         common.type(PageElements.MIDDLE_NAME, "Test", "Middle Name");
         common.type(PageElements.LAST_NAME, "Employee", "Last Name");
-        common.click(PageElements.SAVE_BUTTON, "Save Employee");
+        common.selfHealingClick("SAVE_BUTTON");
         logger.info("Employee created successfully");
         // Navigate to Employee List
-        common.click(PageElements.EMPLOYEE_LIST, "Employee List");
+        common.selfHealingClick("EMPLOYEE_LIST");
         // Edit first employee record
         common.click(PageElements.FIRST_EMPLOYEE_EDIT, "Edit First Employee");
         // Modify employee details
@@ -42,9 +42,9 @@ public class EndToEnd extends ParentClass {
         common.type(PageElements.MIDDLE_NAME, "UpdatedMiddle", "Updated Middle Name");
         common.clear(PageElements.LAST_NAME);
         common.type(PageElements.LAST_NAME, "UpdatedLast", "Updated Last Name");
-        common.click(PageElements.SAVE_BUTTON, "Save Employee");
+        common.selfHealingClick("SAVE_BUTTON");
         // Navigate to Employee List
-        common.click(PageElements.EMPLOYEE_LIST, "Employee List");
+        common.selfHealingClick("EMPLOYEE_LIST");
         // Delete Selected Employees
         logger.info("Deleting selected employee records");
         List<WebElement> checkboxes = common.waitForElements(PageElements.EMPLOYEE_CHECKBOXES);
