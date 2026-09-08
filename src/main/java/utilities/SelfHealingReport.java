@@ -2,7 +2,7 @@ package utilities;
 
 import java.io.File;
 import java.io.IOException;
-
+import java.util.List;
 public class SelfHealingReport {
 
     private static final String REPORT_DIRECTORY = "reports";
@@ -75,5 +75,74 @@ public class SelfHealingReport {
         }
 
         return reportFile.getPath();
+    }
+
+    public static void generateReport(String reportPath, String testName, List<String> healingEvents)
+            throws IOException {
+
+        StringBuilder html = new StringBuilder();
+
+        html.append("<!DOCTYPE html>");
+        html.append("<html>");
+        html.append("<head>");
+        html.append("<title>Self-Healing Test Report</title>");
+        html.append("<style>");
+        html.append("body{font-family:Arial,sans-serif;margin:30px;}");
+        html.append("table{border-collapse:collapse;width:100%;}");
+        html.append("th,td{border:1px solid #ccc;padding:10px;text-align:left;}");
+        html.append("th{background:#f2f2f2;}");
+        html.append(".failed{background:#fff2cc;}");
+        html.append(".fallback{background:#fce4d6;}");
+        html.append(".success{background:#d9ead3;}");
+        html.append("</style>");
+        html.append("</head>");
+
+        html.append("<body>");
+        html.append("<h1>Self-Healing Test Report</h1>");
+        html.append("<h2>Test Case: ").append(testName).append("</h2>");
+
+        html.append("<table>");
+        html.append("<tr>");
+        html.append("<th>Element</th>");
+        html.append("<th>Locator</th>");
+        html.append("<th>Status</th>");
+        html.append("<th>Details</th>");
+        html.append("</tr>");
+
+        for (String event : healingEvents) {
+
+            String[] parts = event.split("\\|");
+
+            String element = parts.length > 0 ? parts[0].trim() : "";
+            String locator = parts.length > 1 ? parts[1].trim() : "";
+            String status = parts.length > 2 ? parts[2].trim() : "";
+            String details = parts.length > 3 ? parts[3].trim() : "";
+
+            String cssClass = "";
+
+            if ("FAILED".equals(status)) {
+                cssClass = "failed";
+            } else if ("FALLBACK SUCCESS".equals(status)) {
+                cssClass = "fallback";
+            } else {
+                cssClass = "success";
+            }
+
+            html.append("<tr class='").append(cssClass).append("'>");
+            html.append("<td>").append(element).append("</td>");
+            html.append("<td>").append(locator).append("</td>");
+            html.append("<td>").append(status).append("</td>");
+            html.append("<td>").append(details).append("</td>");
+            html.append("</tr>");
+        }
+
+        html.append("</table>");
+        html.append("</body>");
+        html.append("</html>");
+
+        java.nio.file.Files.writeString(
+                java.nio.file.Paths.get(reportPath),
+                html.toString()
+        );
     }
 }

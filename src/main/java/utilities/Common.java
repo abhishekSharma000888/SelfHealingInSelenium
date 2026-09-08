@@ -205,5 +205,8 @@ public class Common {
 
         element.click();
     }
+    public List<String> getHealingEvents() {
+        return selfHealingLocator.getHealingEvents();
+    }
 
 }

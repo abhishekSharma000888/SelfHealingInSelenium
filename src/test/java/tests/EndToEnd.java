@@ -21,6 +21,7 @@ public class EndToEnd extends ParentClass {
         common.selfHealingClickFast("PIM");
         logger.info("Starting employee creation");
         common.selfHealingClickFast("ADD_EMPLOYEE");
+        common.waitForElementWithTimeout(PageElements.FIRST_NAME, 2);
         common.type(PageElements.FIRST_NAME, "New", "First Name");
         common.type(PageElements.MIDDLE_NAME, "Test", "Middle Name");
         common.type(PageElements.LAST_NAME, "Employee", "Last Name");
