@@ -14,7 +14,7 @@ public class EndToEnd extends ParentClass {
 
     @Test
     public void employeeLifecycleAddAndEdit() {
-        logger.info("Starting FAST employee lifecycle test");
+        logger.info("Starting employeeLifecycleAddAndEdit employee lifecycle test");
         common.selfHealingType("USERNAME", "Admin");
         common.selfHealingType("PASSWORD", "admin123");
         common.selfHealingClickFast("LOGIN_BUTTON");

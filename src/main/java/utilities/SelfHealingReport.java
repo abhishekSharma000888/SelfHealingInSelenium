@@ -77,29 +77,53 @@ public class SelfHealingReport {
         return reportFile.getPath();
     }
 
-    public static void generateReport(String reportPath, String testName, List<String> healingEvents)
-            throws IOException {
+    public static void generateReport(
+            String reportPath,
+            String testName,
+            List<String> testLogs,
+            List<String> healingEvents) throws IOException {
 
         StringBuilder html = new StringBuilder();
 
-        html.append("<!DOCTYPE html>");
-        html.append("<html>");
-        html.append("<head>");
+        html.append("<!DOCTYPE html><html><head>");
         html.append("<title>Self-Healing Test Report</title>");
         html.append("<style>");
         html.append("body{font-family:Arial,sans-serif;margin:30px;}");
-        html.append("table{border-collapse:collapse;width:100%;}");
+        html.append("h1{margin-bottom:5px;}");
+        html.append("h2{margin-top:25px;}");
+        html.append("details{margin-top:15px;border:1px solid #ccc;border-radius:5px;padding:10px;}");
+        html.append("summary{font-weight:bold;cursor:pointer;font-size:16px;}");
+        html.append(".logs{background:#f7f7f7;padding:15px;margin-top:10px;border-radius:4px;}");
+        html.append(".log{font-family:monospace;padding:4px 0;border-bottom:1px solid #eee;}");
+        html.append("table{border-collapse:collapse;width:100%;margin-top:15px;}");
         html.append("th,td{border:1px solid #ccc;padding:10px;text-align:left;}");
         html.append("th{background:#f2f2f2;}");
         html.append(".failed{background:#fff2cc;}");
         html.append(".fallback{background:#fce4d6;}");
         html.append(".success{background:#d9ead3;}");
         html.append("</style>");
-        html.append("</head>");
+        html.append("</head><body>");
 
-        html.append("<body>");
         html.append("<h1>Self-Healing Test Report</h1>");
-        html.append("<h2>Test Case: ").append(testName).append("</h2>");
+        html.append("<h2>Test Case: ").append(escapeHtml(testName)).append("</h2>");
+
+        // Test execution logs
+        html.append("<details>");
+        html.append("<summary>Test Execution Logs</summary>");
+        html.append("<div class='logs'>");
+
+        for (String log : testLogs) {
+            html.append("<div class='log'>")
+                    .append(escapeHtml(log))
+                    .append("</div>");
+        }
+
+        html.append("</div>");
+        html.append("</details>");
+
+        // Self-healing strategy
+        html.append("<details>");
+        html.append("<summary>Self-Healing Strategy</summary>");
 
         html.append("<table>");
         html.append("<tr>");
@@ -110,7 +134,6 @@ public class SelfHealingReport {
         html.append("</tr>");
 
         for (String event : healingEvents) {
-
             String[] parts = event.split("\\|");
 
             String element = parts.length > 0 ? parts[0].trim() : "";
@@ -129,20 +152,30 @@ public class SelfHealingReport {
             }
 
             html.append("<tr class='").append(cssClass).append("'>");
-            html.append("<td>").append(element).append("</td>");
-            html.append("<td>").append(locator).append("</td>");
-            html.append("<td>").append(status).append("</td>");
-            html.append("<td>").append(details).append("</td>");
+            html.append("<td>").append(escapeHtml(element)).append("</td>");
+            html.append("<td>").append(escapeHtml(locator)).append("</td>");
+            html.append("<td>").append(escapeHtml(status)).append("</td>");
+            html.append("<td>").append(escapeHtml(details)).append("</td>");
             html.append("</tr>");
         }
 
         html.append("</table>");
-        html.append("</body>");
-        html.append("</html>");
+        html.append("</details>");
+
+        html.append("</body></html>");
 
         java.nio.file.Files.writeString(
                 java.nio.file.Paths.get(reportPath),
                 html.toString()
         );
+    }
+
+    private static String escapeHtml(String text) {
+        return text
+                .replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\"", "&quot;")
+                .replace("'", "&#39;");
     }
 }
