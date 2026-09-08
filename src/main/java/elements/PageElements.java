@@ -8,10 +8,10 @@ public class PageElements {
     public static final By USERNAME_L2 = By.xpath("//input[@name='usernam']");
     public static final By USERNAME_L3 = By.name("username");
     public static final By PASSWORD_L1 = By.name("passwor");
-    public static final By PASSWORD_L2 = By.xpath("//input[@name='passwor']");
+    public static final By PASSWORD_L2 = By.xpath("//input[@name='password']");
     public static final By PASSWORD_L3 = By.name("password");
     public static final By LOGIN_BUTTON_L1 = By.xpath("//button[@type='submi']");
-    public static final By LOGIN_BUTTON_L2 = By.cssSelector("button[type='submi']");
+    public static final By LOGIN_BUTTON_L2 = By.cssSelector("button[type='submit']");
     public static final By LOGIN_BUTTON_L3 = By.xpath("//button[@type='submit']");
     public static final By PIM_L1 = By.xpath("//span[text()='PIMX']");
     public static final By PIM_L2 = By.xpath("//span[contains(text(),'PIMX')]");

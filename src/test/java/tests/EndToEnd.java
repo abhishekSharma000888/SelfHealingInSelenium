@@ -13,7 +13,33 @@ public class EndToEnd extends ParentClass {
     private static final Logger logger = LoggerFactory.getLogger(EndToEnd.class);
 
     @Test
-    public void employeeLifecycle() {
+    public void employeeLifecycleAddAndEdit() {
+        logger.info("Starting employeeLifecycleAddAndEdit employee lifecycle test");
+        common.selfHealingType("USERNAME", "Admin");
+        common.selfHealingType("PASSWORD", "admin123");
+        common.selfHealingClickFast("LOGIN_BUTTON");
+        common.selfHealingClickFast("PIM");
+        logger.info("Starting employee creation");
+        common.selfHealingClickFast("ADD_EMPLOYEE");
+        common.waitForElementWithTimeout(PageElements.FIRST_NAME, 2);
+        common.type(PageElements.FIRST_NAME, "New", "First Name");
+        common.type(PageElements.MIDDLE_NAME, "Test", "Middle Name");
+        common.type(PageElements.LAST_NAME, "Employee", "Last Name");
+        common.selfHealingClickFast("SAVE_BUTTON");
+        logger.info("Employee created successfully");
+        common.selfHealingClickFast("EMPLOYEE_LIST");
+        common.click(PageElements.FIRST_EMPLOYEE_EDIT, "Edit First Employee");
+        common.clear(PageElements.FIRST_NAME);
+        common.type(PageElements.FIRST_NAME, "Edited_New", "Updated First Name");
+        common.clear(PageElements.MIDDLE_NAME);
+        common.type(PageElements.MIDDLE_NAME, "EditedMiddle", "Updated Middle Name");
+        common.clear(PageElements.LAST_NAME);
+        common.type(PageElements.LAST_NAME, "EditedLast", "Updated Last Name");
+        common.selfHealingClickFast("SAVE_BUTTON");
+    }
+
+    @Test
+    public void completeEmployeeLifecycle() {
         // login flow
         logger.info("Starting employee lifecycle test"+ " Performing login");
         common.selfHealingType("USERNAME", "Admin");
