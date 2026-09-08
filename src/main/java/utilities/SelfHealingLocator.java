@@ -44,4 +44,38 @@ public class SelfHealingLocator {
             throw e3;
         }
     }
+
+    // new Test Method
+    public WebElement findFast(By locator1, By locator2, By locator3, String description) {
+
+        try {
+            WebElement element = common.waitForElementWithTimeout(locator1, 2);
+            logger.info("Locator 1 succeeded for: {}", description);
+            return element;
+        } catch (Exception e1) {
+            logger.warn("Locator 1 failed for: {} | {}", description, e1.getClass().getSimpleName());
+        }
+
+        try {
+            WebElement element = common.waitForElementWithTimeout(locator2, 2);
+            logger.info("Locator 2 succeeded for: {}", description);
+            logger.warn("Self-healing fallback: Locator 2 used for: {}", description);
+            return element;
+        } catch (Exception e2) {
+            logger.warn("Locator 2 failed for: {} | {}", description, e2.getClass().getSimpleName());
+        }
+
+        try {
+            WebElement element = common.waitForElementWithTimeout(locator3, 2);
+            logger.info("Locator 3 succeeded for: {}", description);
+            logger.warn("Self-healing fallback: Locator 3 used for: {}", description);
+            return element;
+        } catch (Exception e3) {
+            logger.warn("Locator 3 failed for: {} | {}", description, e3.getClass().getSimpleName());
+            logger.error("All three locators failed for: {}", description);
+            throw e3;
+        }
+    }
+
+
 }

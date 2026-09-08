@@ -19,7 +19,7 @@ public class Common {
 
     public Common(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(04));
         this.selfHealingLocator = new SelfHealingLocator(this);
     }
 
@@ -169,4 +169,41 @@ public class Common {
         element.clear();
         element.sendKeys(text);
     }
+
+    public WebElement waitForElementWithTimeout(By locator, int seconds) {
+        WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
+        return shortWait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    public WebElement selfHealingFindFast(By locator1, By locator2, By locator3, String description) {
+        return selfHealingLocator.findFast(locator1, locator2, locator3, description);
+    }
+    public void selfHealingClickFast(String elementName) {
+
+        WebElement element;
+
+        switch (elementName) {
+
+            case "LOGIN_BUTTON":
+                element = selfHealingFindFast(PageElements.LOGIN_BUTTON_L1, PageElements.LOGIN_BUTTON_L2, PageElements.LOGIN_BUTTON_L3, "Login button");
+                break;
+            case "PIM":
+                element = selfHealingFindFast(PageElements.PIM_L1, PageElements.PIM_L2, PageElements.PIM_L3, "PIM");
+                break;
+            case "ADD_EMPLOYEE":
+                element = selfHealingFindFast(PageElements.ADD_EMPLOYEE_L1, PageElements.ADD_EMPLOYEE_L2, PageElements.ADD_EMPLOYEE_L3, "Add Employee");
+                break;
+            case "SAVE_BUTTON":
+                element = selfHealingFindFast(PageElements.SAVE_BUTTON_L1, PageElements.SAVE_BUTTON_L2, PageElements.SAVE_BUTTON_L3, "Save button");
+                break;
+            case "EMPLOYEE_LIST":
+                element = selfHealingFindFast(PageElements.EMPLOYEE_LIST_L1, PageElements.EMPLOYEE_LIST_L2, PageElements.EMPLOYEE_LIST_L3, "Employee List");
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown self-healing element: " + elementName);
+        }
+
+        element.click();
+    }
+
 }
