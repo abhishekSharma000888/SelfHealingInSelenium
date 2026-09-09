@@ -28,12 +28,10 @@ public class EndToEnd extends ParentClass {
         common.selfHealingClickFast("SAVE_BUTTON");
         logger.info("Employee created successfully");
         common.selfHealingClickFast("EMPLOYEE_LIST");
-        common.click(PageElements.FIRST_EMPLOYEE_EDIT, "Edit First Employee");
-        common.clear(PageElements.FIRST_NAME);
+        logger.info("Starting edit of first employee record");
+        common.selfHealingFirstEmployeeEdit();
         common.type(PageElements.FIRST_NAME, "Edited_New", "Updated First Name");
-        common.clear(PageElements.MIDDLE_NAME);
         common.type(PageElements.MIDDLE_NAME, "EditedMiddle", "Updated Middle Name");
-        common.clear(PageElements.LAST_NAME);
         common.type(PageElements.LAST_NAME, "EditedLast", "Updated Last Name");
         common.selfHealingClickFast("SAVE_BUTTON");
     }
@@ -59,14 +57,12 @@ public class EndToEnd extends ParentClass {
         // Navigate to Employee List
         common.selfHealingClick("EMPLOYEE_LIST");
         // Edit first employee record
-        common.click(PageElements.FIRST_EMPLOYEE_EDIT, "Edit First Employee");
+        logger.info("Starting edit of first employee record");
         // Modify employee details
         logger.info("Starting edit of first employee record");
-        common.clear(PageElements.FIRST_NAME);
+        common.selfHealingFirstEmployeeEdit();
         common.type(PageElements.FIRST_NAME, "UpdatedFirst", "Updated First Name");
-        common.clear(PageElements.MIDDLE_NAME);
         common.type(PageElements.MIDDLE_NAME, "UpdatedMiddle", "Updated Middle Name");
-        common.clear(PageElements.LAST_NAME);
         common.type(PageElements.LAST_NAME, "UpdatedLast", "Updated Last Name");
         common.selfHealingClick("SAVE_BUTTON");
         // Navigate to Employee List

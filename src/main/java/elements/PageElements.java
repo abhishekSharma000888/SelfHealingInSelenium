@@ -28,7 +28,9 @@ public class PageElements {
     public static final By EMPLOYEE_LIST_L1 = By.xpath("//a[text()='Employee Lis']");
     public static final By EMPLOYEE_LIST_L2 = By.xpath("//a[contains(text(),'Employee Lis')]");
     public static final By EMPLOYEE_LIST_L3 = By.xpath("//a[text()='Employee List']");
-    public static final By FIRST_EMPLOYEE_EDIT = By.xpath("(//div[@role='row'])[2]//button[1]");
+    public static final By FIRST_EMPLOYEE_EDIT_L1 = By.xpath("(//div[@role='row'])[2]//button[1]");
+    public static final By FIRST_EMPLOYEE_EDIT_L2 = By.xpath("(//div[@role='row'])[2]//button[contains(@class,'oxd-table-cell-action-space')][1]");
+    public static final By FIRST_EMPLOYEE_EDIT_L3 = By.xpath("(//div[@role='row'])[2]//i[contains(@class,'bi-pencil-fill')]/..");
     public static final By FORM_LOADER = By.cssSelector(".oxd-form-loader");
     public static final By SUCCESS_MESSAGE = By.xpath("//div[contains(@class,'oxd-toast--success')]");
     public static final By EMPLOYEE_CHECKBOXES = By.cssSelector(".oxd-table-card .oxd-checkbox-input-icon");
