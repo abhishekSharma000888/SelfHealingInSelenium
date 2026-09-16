@@ -1,9 +1,6 @@
 package utilities;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import elements.PageElements;
@@ -19,7 +16,7 @@ public class Common {
 
     public Common(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(04));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         this.selfHealingLocator = new SelfHealingLocator(this);
     }
 
@@ -100,11 +97,20 @@ public class Common {
 
     // Wait for OrangeHRM form loader to disappear
     public void waitForFormLoaderToDisappear() {
-        wait.until(
-                ExpectedConditions.invisibilityOfElementLocated(
-                        PageElements.FORM_LOADER
-                )
-        );
+        int maxAttempts = 7;
+        int waitDurationSeconds = 2;
+        for (int attempt = 1; attempt <= maxAttempts; attempt++) {
+            try {
+                WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(waitDurationSeconds));
+                shortWait.until(ExpectedConditions.invisibilityOfElementLocated(PageElements.FORM_LOADER));
+                return;
+
+            } catch (TimeoutException e) {
+                if (attempt == maxAttempts) {
+                    throw e;
+                }
+            }
+        }
     }
 
     // Waits until at least one element matching the locator is present in the DOM.
@@ -209,4 +215,32 @@ public class Common {
         return selfHealingLocator.getHealingEvents();
     }
 
+    public void selfHealingFirstEmployeeEdit() {
+        try {
+            WebElement element = waitForElementToBeClickable(PageElements.FIRST_EMPLOYEE_EDIT_L1);
+            element.click();
+            System.out.println("FIRST_EMPLOYEE_EDIT L1 succeeded");
+            return;
+        } catch (Exception e) {
+            System.out.println("FIRST_EMPLOYEE_EDIT L1 failed");
+        }
+
+        try {
+            WebElement element = waitForElementToBeClickable(PageElements.FIRST_EMPLOYEE_EDIT_L2);
+            element.click();
+            System.out.println("FIRST_EMPLOYEE_EDIT L2 succeeded");
+            return;
+        } catch (Exception e) {
+            System.out.println("FIRST_EMPLOYEE_EDIT L2 failed");
+        }
+
+        try {
+            WebElement element = waitForElementToBeClickable(PageElements.FIRST_EMPLOYEE_EDIT_L3);
+            element.click();
+            System.out.println("FIRST_EMPLOYEE_EDIT L3 succeeded");
+            return;
+        } catch (Exception e) {
+            throw new RuntimeException("All FIRST_EMPLOYEE_EDIT locators failed");
+        }
+    }
 }

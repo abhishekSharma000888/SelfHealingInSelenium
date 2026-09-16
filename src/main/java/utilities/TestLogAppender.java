@@ -19,7 +19,4 @@ public class TestLogAppender extends AppenderBase<ILoggingEvent> {
         return new ArrayList<>(logs);
     }
 
-    public void clearLogs() {
-        logs.clear();
-    }
 }
