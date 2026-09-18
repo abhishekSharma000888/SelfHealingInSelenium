@@ -130,7 +130,6 @@ public class SelfHealingReport {
         html.append("<th>Element</th>");
         html.append("<th>Locator</th>");
         html.append("<th>Status</th>");
-        html.append("<th>Details</th>");
         html.append("</tr>");
 
         for (String event : healingEvents) {
@@ -139,7 +138,6 @@ public class SelfHealingReport {
             String element = parts.length > 0 ? parts[0].trim() : "";
             String locator = parts.length > 1 ? parts[1].trim() : "";
             String status = parts.length > 2 ? parts[2].trim() : "";
-            String details = parts.length > 3 ? parts[3].trim() : "";
 
             String cssClass = "";
 
@@ -155,7 +153,6 @@ public class SelfHealingReport {
             html.append("<td>").append(escapeHtml(element)).append("</td>");
             html.append("<td>").append(escapeHtml(locator)).append("</td>");
             html.append("<td>").append(escapeHtml(status)).append("</td>");
-            html.append("<td>").append(escapeHtml(details)).append("</td>");
             html.append("</tr>");
         }
 
