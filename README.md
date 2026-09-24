@@ -1,6 +1,3 @@
-Exactly — you want **the entire README, including every sentence, code block, heading, and structure, inside one single copyable Markdown code block**. Nothing from the README should appear outside that block.
-
-Here is the complete version:
 
 ````markdown
 # SelfHealingInSelenium
