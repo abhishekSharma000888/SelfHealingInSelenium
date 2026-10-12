@@ -16,7 +16,7 @@ public class Common {
 
     public Common(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         this.selfHealingLocator = new SelfHealingLocator(this);
     }
 
